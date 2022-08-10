@@ -19,6 +19,7 @@ import org.json.JSONObject
 import retrofit2.*
 import java.util.*
 
+//전반적으로 주석을 다는게 좋습니다.
 class MainActivity : AppCompatActivity() {
 
     var e = 0
@@ -41,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         val iterator = jsonArray.keys()
 
+        //COMMENT : 370101 의 숫자가 어디서 나왔는지 추정하기 힘드네요.
+        //array의 length라던가 가변하는 데이터의 길이라면 길이를 구해서 써야 할 듯.
+
         for(i in 0 until 10){
             val a = random.nextInt(370101)+1
             arr[i] = a
@@ -51,6 +55,9 @@ class MainActivity : AppCompatActivity() {
 
         arr.sort()
 
+        // COMMENT : iterator hasNext와 next() 를 사용하는 깔끔한 코드 방식은 아닌 듯 합니다.
+        // 이미 jsonArray로 가지고 있는데 이렇게 구현할 이유가 있을까요?
+        // 필요한게 앞단 10개라면 훨씬 간단한 코드로 구현할 수 있을 듯.
         while(iterator.hasNext())
         {
 
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 c += 1
             }
             else{
+                //COMMENT: 의미없는 assign 인 듯 합니다.
                 val a = iterator.next()
             }
 
@@ -69,7 +77,14 @@ class MainActivity : AppCompatActivity() {
             d++
         }
 
+        // COMMENT: 최초의 주어진 데이터셋에서 10개를 랜덤으로 뽑는 것이 이럻게 긴 코드일 필요가 있을까요.
+        // 조금 더 고민해서 의미를 알기 쉬우면서 축약하면 좋을 듯.
+
+
         val viewPager = findViewById<ViewPager2>(R.id.view_pager2)
+
+        //COMMENT : jsonArray-> list_words -> models
+        //불필요한 작업들이 많은 듯 합니다. 처음부터 models에서 사용할거면 jsonArray에서 바로 models에 넣는게 좋을 거 같네요.
 
         var models: MutableList<String> = mutableListOf()
 
@@ -98,8 +113,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        //COMMENT : 뷰와 컨트롤러를 따로 분리하는 이유가 있을 거 같네요.
+        //꼭 코딩으로 이렇게 세팅하는거보다 뷰 파일에서 이벤트를 거는게 좋을 듯 합니다.
+        
         btn.setOnClickListener{
-            var aa = ""
+            var aa = "" //변수명도 의미가 있었으면 좋겠습니다.
 
             Handler().postDelayed({
                     val builder = AlertDialog.Builder(this@MainActivity)
@@ -132,6 +150,9 @@ class MainActivity : AppCompatActivity() {
                             val responses = response.body().toString()
 
                             Log.d("TAG", responses)
+
+                            //COMMENT 이런 방식 말고 더 깔끔하고 범용적인 방법이 없을까요 ?
+                            //parse query string
 
                             val arr = responses.split("definition=")
 

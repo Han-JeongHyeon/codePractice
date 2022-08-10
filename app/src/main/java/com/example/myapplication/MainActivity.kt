@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         var list_words = arrayListOf<String>()
         val arr = Array(10,{0})
 
+        //COMMENT : 에셋 문자열 같은 경우는 상수로 정의해서 사용하면 향후 운영하기 더 편합니다.
         val jsonString = assets.open("words_dictionary.json").reader().readText()
         val jsonArray = JSONObject(jsonString)
 

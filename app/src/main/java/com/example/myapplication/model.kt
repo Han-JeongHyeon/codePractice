@@ -1,3 +1,5 @@
 package com.example.myapplication
 
-class model(var title: String)
+class model(
+    var title: String
+)
